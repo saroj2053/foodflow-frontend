@@ -1,7 +1,6 @@
 import carouselImage1 from "../assets/carousel-image-1.jpg";
 import carouselImage2 from "../assets/carousel-image-2.jpg";
 import carouselImage3 from "../assets/carousel-image-3.jpg";
-import carouselImage4 from "../assets/carousel-image-4.jpg";
 import carouselImage5 from "../assets/carousel-image-5.jpg";
 import carouselImage6 from "../assets/carousel-image-6.jpg";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
@@ -13,7 +12,6 @@ const Hero = () => {
     carouselImage1,
     carouselImage2,
     carouselImage3,
-    carouselImage4,
     carouselImage5,
     carouselImage6,
   ];

@@ -52,7 +52,7 @@ const Login = () => {
   };
   return (
     <Layout>
-      <div className="container mx-auto flex justify-center items-center h-[80vh]">
+      <div className="container mx-auto flex justify-center items-center min-h-[75vh]">
         <Card className="w-[500px]">
           <CardHeader>
             <CardTitle className="text-4xl font-bold text-orange-600 text-center">
