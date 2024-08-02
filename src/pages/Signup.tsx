@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useSignup } from "@/api/authAPI";
 
 type Inputs = {
   name: string;
@@ -20,6 +21,8 @@ type Inputs = {
 };
 
 const Signup = () => {
+  const { createUser } = useSignup();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,8 +31,8 @@ const Signup = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log(data);
+    createUser(data);
+    navigate("/");
   };
   return (
     <Layout>

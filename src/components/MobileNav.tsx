@@ -7,10 +7,11 @@ import {
 } from "./ui/sheet";
 import { Menu } from "lucide-react";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Separator } from "./ui/separator";
 
 const MobileNav = () => {
+  const navigate = useNavigate();
   return (
     <Sheet>
       <SheetTrigger className="flex items-center">
@@ -22,19 +23,29 @@ const MobileNav = () => {
         </SheetTitle>
         <Separator />
         <SheetDescription className="flex flex-col gap-3">
-          <Link to="/about" className="text-center hover:text-orange-500 my-3">
-            About
+          <Link
+            to="/"
+            className="text-center font-semibold hover:text-orange-500 my-3"
+          >
+            Home
           </Link>
           <Link
-            to="/contact"
-            className="text-center hover:text-orange-500 my-3"
+            to="/allRestaurants"
+            className="text-center font-semibold hover:text-orange-500 my-3"
           >
-            Contact
+            Browse Restaurants
           </Link>
-          <Button variant="ghost" className="flex-1 ">
+          <Button
+            variant="ghost"
+            className="flex-1 font-semibold"
+            onClick={() => navigate("/login")}
+          >
             Log In
           </Button>
-          <Button className="flex-1 font-bold bg-orange-500 text-slate-100">
+          <Button
+            className="flex-1 font-semibold bg-orange-500 text-slate-100"
+            onClick={() => navigate("/signup")}
+          >
             Sign Up
           </Button>
         </SheetDescription>

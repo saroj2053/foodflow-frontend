@@ -5,11 +5,11 @@ const MainNav = () => {
   const navigate = useNavigate();
   return (
     <div className="flex gap-8 items-center font-semibold text-slate-700 text-md">
-      <Link to="/about" className="hover:text-orange-500">
-        About
+      <Link to="/" className="hover:text-orange-500">
+        Home
       </Link>
-      <Link to="/contact" className="hover:text-orange-500">
-        Contact
+      <Link to="/allRestaurants" className="hover:text-orange-500">
+        Browse Restaurants
       </Link>
       <Button
         variant="ghost"
