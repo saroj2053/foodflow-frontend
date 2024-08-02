@@ -27,7 +27,7 @@ const Login = () => {
 
     //manual validation
     if (!email) {
-      setErrors({ ...errors, email: "Email is required" });
+      setErrors({ ...errors, email: "This field is required" });
       return;
     }
 
@@ -37,7 +37,7 @@ const Login = () => {
     }
 
     if (!password) {
-      setErrors({ ...errors, password: "Password is required" });
+      setErrors({ ...errors, password: "This field is required" });
       return;
     }
 
@@ -65,6 +65,9 @@ const Login = () => {
                 <div className="flex flex-col space-y-3">
                   <Label htmlFor="email">Email</Label>
                   <Input
+                    className={`border-2 ${
+                      errors.email ? "border-red-500" : "border-slate-300"
+                    }`}
                     type="email"
                     value={email}
                     onChange={(evt) => setEmail(evt.target.value)}
@@ -72,12 +75,15 @@ const Login = () => {
                     placeholder="example@gmail.com"
                   />
                   {errors.email && (
-                    <div className="text-red-500">{errors.email}</div>
+                    <div className="text-red-500 text-sm">{errors.email}</div>
                   )}
                 </div>
                 <div className="flex flex-col space-y-3">
                   <Label htmlFor="password">Password</Label>
                   <Input
+                    className={`border-2 ${
+                      errors.password ? "border-red-500" : "border-slate-300"
+                    }`}
                     type="password"
                     value={password}
                     onChange={(evt) => setPassword(evt.target.value)}
@@ -85,7 +91,9 @@ const Login = () => {
                     placeholder="your password here"
                   />
                   {errors.password && (
-                    <div className="text-red-500">{errors.password}</div>
+                    <div className="text-red-500 text-sm">
+                      {errors.password}
+                    </div>
                   )}
                 </div>
               </div>

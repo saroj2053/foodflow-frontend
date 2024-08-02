@@ -11,7 +11,11 @@ const MainNav = () => {
       <Link to="/contact" className="hover:text-orange-500">
         Contact
       </Link>
-      <Button variant="ghost" onClick={() => navigate("/login")}>
+      <Button
+        variant="ghost"
+        className="font-semibold text-md"
+        onClick={() => navigate("/login")}
+      >
         Log In
       </Button>
       <Link

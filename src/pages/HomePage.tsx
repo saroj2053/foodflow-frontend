@@ -2,6 +2,7 @@ import landingImg from "../assets/landing.png";
 import appDownloadImage from "../assets/appDownload.png";
 import Layout from "@/layouts/Layout";
 import Hero from "@/components/Hero";
+import SearchInput from "@/components/SearchInput";
 
 const HomePage = () => {
   return (
@@ -13,6 +14,9 @@ const HomePage = () => {
             Indulge into a takeout today
           </h1>
           <span className="text-xl">Food is just a click away!</span>
+          <div className="w-[80%] mx-auto">
+            <SearchInput />
+          </div>
         </div>
         <div className="grid md:grid-cols-2 gap-5">
           <img src={landingImg} alt="" />

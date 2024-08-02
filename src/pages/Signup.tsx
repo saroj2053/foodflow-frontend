@@ -33,7 +33,7 @@ const Signup = () => {
   };
   return (
     <Layout>
-      <div className="container mx-auto flex justify-center items-center min-h-[80vh]">
+      <div className="container mx-auto flex justify-center items-center min-h-[80vh] py-12">
         <Card className="w-[500px]">
           <CardHeader>
             <CardTitle className="text-4xl font-bold text-orange-600 text-center">
@@ -46,8 +46,11 @@ const Signup = () => {
                 <div className="flex flex-col space-y-3">
                   <Label htmlFor="name">Name</Label>
                   <Input
+                    className={`border-2 ${
+                      errors.name ? "border-red-500" : "border-slate-300"
+                    }`}
                     {...register("name", {
-                      required: "Name is required",
+                      required: "This field is required",
                       minLength: {
                         value: 6,
                         message: "Name should contain atleast 6 chars",
@@ -58,14 +61,19 @@ const Signup = () => {
                     placeholder="john doe"
                   />
                   {errors.name && (
-                    <div className="text-red-500">{errors.name.message}</div>
+                    <div className="text-red-500 text-sm">
+                      {errors.name.message}
+                    </div>
                   )}
                 </div>
                 <div className="flex flex-col space-y-3">
                   <Label htmlFor="email">Email</Label>
                   <Input
+                    className={`border-2 ${
+                      errors.email ? "border-red-500" : "border-slate-300"
+                    }`}
                     {...register("email", {
-                      required: "Email is required",
+                      required: "This field is required",
                       validate: (value) => {
                         if (!value.includes("@")) {
                           return "Email must include @";
@@ -78,14 +86,19 @@ const Signup = () => {
                     placeholder="example@gmail.com"
                   />
                   {errors.email && (
-                    <div className="text-red-500">{errors.email.message}</div>
+                    <div className="text-red-500 text-sm">
+                      {errors.email.message}
+                    </div>
                   )}
                 </div>
                 <div className="flex flex-col space-y-3">
                   <Label htmlFor="password">Password</Label>
                   <Input
+                    className={`border-2 ${
+                      errors.password ? "border-red-500" : "border-slate-300"
+                    }`}
                     {...register("password", {
-                      required: "Password is required",
+                      required: "This field is required",
                       minLength: {
                         value: 8,
                         message: "Password should contain atleast 8 chars ",
@@ -96,7 +109,7 @@ const Signup = () => {
                     placeholder="your password here"
                   />
                   {errors.password && (
-                    <div className="text-red-500">
+                    <div className="text-red-500 text-sm">
                       {errors.password.message}
                     </div>
                   )}
@@ -104,8 +117,13 @@ const Signup = () => {
                 <div className="flex flex-col space-y-3">
                   <Label htmlFor="confirmPassword">Confirm Password</Label>
                   <Input
+                    className={`border-2 ${
+                      errors.confirmPassword
+                        ? "border-red-500"
+                        : "border-slate-300"
+                    }`}
                     {...register("confirmPassword", {
-                      required: "Confirm Password is required",
+                      required: "This field is required",
                       minLength: {
                         value: 8,
                         message:
@@ -120,7 +138,7 @@ const Signup = () => {
                     placeholder="your password here"
                   />
                   {errors.confirmPassword && (
-                    <div className="text-red-500">
+                    <div className="text-red-500 text-sm">
                       {errors.confirmPassword.message}
                     </div>
                   )}
@@ -154,6 +172,3 @@ const Signup = () => {
 };
 
 export default Signup;
-function getValues(password: any) {
-  throw new Error("Function not implemented.");
-}
