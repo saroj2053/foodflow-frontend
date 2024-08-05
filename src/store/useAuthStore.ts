@@ -7,6 +7,13 @@ export type User = {
   email: string;
   avatar?: string;
   createdAt?: string;
+  address?: {
+    addressLine1: string;
+    city: string;
+    country: string;
+    id: string;
+    createdAt: string;
+  };
 };
 
 interface AuthStore {

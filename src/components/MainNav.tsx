@@ -24,7 +24,10 @@ const MainNav = () => {
       {user ? (
         <>
           <Link to="/order">Order Status</Link>
-          <div className="flex gap-2 items-center cursor-pointer">
+          <div
+            className="flex gap-2 items-center cursor-pointer"
+            onClick={() => navigate("/user-profile")}
+          >
             <img
               className="w12 h-12 rounded-full"
               src={user?.avatar}
