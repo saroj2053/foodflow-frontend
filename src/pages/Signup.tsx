@@ -12,6 +12,8 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSignup } from "@/api/authAPI";
+import { Eye, EyeOff, UserPlus } from "lucide-react";
+import { useState } from "react";
 
 type Inputs = {
   name: string;
@@ -23,12 +25,16 @@ type Inputs = {
 const Signup = () => {
   const { createUser } = useSignup();
   const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     getValues,
   } = useForm<Inputs>();
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     createUser(data);
@@ -39,7 +45,12 @@ const Signup = () => {
       <div className="container mx-auto flex justify-center items-center min-h-[80vh] py-12">
         <Card className="w-[500px]">
           <CardHeader>
-            <CardTitle className="text-4xl font-bold text-orange-600 text-center">
+            <CardTitle className="text-6xl font-bold text-slate-800 text-center pb-6">
+              <div className="w-20 h-20 -mt-16 bg-orange-200 rounded-full mx-auto flex items-center justify-center">
+                <span className="text-xl text-slate-800">
+                  <UserPlus size={45} />
+                </span>
+              </div>
               Sign Up
             </CardTitle>
           </CardHeader>
@@ -94,7 +105,7 @@ const Signup = () => {
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col space-y-3">
+                <div className="flex flex-col space-y-3 relative">
                   <Label htmlFor="password">Password</Label>
                   <Input
                     className={`border-2 ${
@@ -107,17 +118,23 @@ const Signup = () => {
                         message: "Password should contain atleast 8 chars ",
                       },
                     })}
-                    type="password"
+                    type={`${showPassword ? "text" : "password"}`}
                     id="password"
                     placeholder="your password here"
                   />
+                  <span
+                    className="absolute right-4 top-5"
+                    onClick={() => setShowPassword((prevState) => !prevState)}
+                  >
+                    {showPassword ? <Eye /> : <EyeOff />}
+                  </span>
                   {errors.password && (
                     <div className="text-red-500 text-sm">
                       {errors.password.message}
                     </div>
                   )}
                 </div>
-                <div className="flex flex-col space-y-3">
+                <div className="flex flex-col space-y-3 relative">
                   <Label htmlFor="confirmPassword">Confirm Password</Label>
                   <Input
                     className={`border-2 ${
@@ -136,10 +153,19 @@ const Signup = () => {
                         value === getValues("password") ||
                         "Passwords don't match",
                     })}
-                    type="password"
-                    id="confirmpassword"
+                    type={`${showConfirmPassword ? "text" : "password"}`}
+                    id="confirmPassword"
                     placeholder="your password here"
                   />
+
+                  <span
+                    className="absolute right-4 top-5"
+                    onClick={() =>
+                      setShowConfirmPassword((prevState) => !prevState)
+                    }
+                  >
+                    {showConfirmPassword ? <Eye /> : <EyeOff />}
+                  </span>
                   {errors.confirmPassword && (
                     <div className="text-red-500 text-sm">
                       {errors.confirmPassword.message}

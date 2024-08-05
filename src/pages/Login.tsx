@@ -9,8 +9,10 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { Eye, EyeOff, LogInIcon } from "lucide-react";
+import { useLogin } from "@/api/authAPI";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -19,8 +21,11 @@ const Login = () => {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
+  const { loginUser, isLoading } = useLogin();
+  const navigate = useNavigate();
 
-  const handleSubmit = (evt: React.FormEvent) => {
+  const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
 
     setErrors({ email: "", password: "" });
@@ -47,22 +52,32 @@ const Login = () => {
     }
 
     //form submission
-    console.log("Form submitted");
-    console.log(email, password);
+    const loginCredentials = { email, password };
+    await loginUser(loginCredentials);
+    navigate("/");
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevState) => !prevState);
   };
   return (
     <Layout>
       <div className="container mx-auto flex justify-center items-center min-h-[75vh]">
         <Card className="w-[500px]">
           <CardHeader>
-            <CardTitle className="text-4xl font-bold text-orange-600 text-center">
+            <CardTitle className="text-6xl font-bold text-slate-800 text-center pb-6">
+              <div className="w-20 h-20 -mt-16 bg-orange-200 rounded-full mx-auto flex items-center justify-center">
+                <span className="text-xl  text-slate-800">
+                  <LogInIcon size={45} />
+                </span>
+              </div>
               Login
             </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit}>
-              <div className="grid w-full items-center gap-6">
-                <div className="flex flex-col space-y-3">
+              <div className="flex flex-col gap-6">
+                <div className="flex flex-col space-y-3 ">
                   <Label htmlFor="email">Email</Label>
                   <Input
                     className={`border-2 ${
@@ -74,22 +89,29 @@ const Login = () => {
                     id="email"
                     placeholder="example@gmail.com"
                   />
+
                   {errors.email && (
                     <div className="text-red-500 text-sm">{errors.email}</div>
                   )}
                 </div>
-                <div className="flex flex-col space-y-3">
+                <div className="flex flex-col space-y-3 relative">
                   <Label htmlFor="password">Password</Label>
                   <Input
                     className={`border-2 ${
                       errors.password ? "border-red-500" : "border-slate-300"
                     }`}
-                    type="password"
+                    type={`${showPassword ? "text" : "password"}`}
                     value={password}
                     onChange={(evt) => setPassword(evt.target.value)}
                     id="password"
                     placeholder="your password here"
                   />
+                  <span
+                    className="absolute right-4 top-5"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <Eye /> : <EyeOff />}
+                  </span>
                   {errors.password && (
                     <div className="text-red-500 text-sm">
                       {errors.password}
@@ -104,8 +126,9 @@ const Login = () => {
               variant="secondary"
               className="w-full"
               onClick={handleSubmit}
+              disabled={isLoading}
             >
-              Login
+              {isLoading ? "Logging in.." : "Login"}
             </Button>
             <span>
               Don't have an account?{" "}

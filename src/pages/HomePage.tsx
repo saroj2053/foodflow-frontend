@@ -3,6 +3,9 @@ import appDownloadImage from "../assets/appDownload.png";
 import Layout from "@/layouts/Layout";
 import Hero from "@/components/Hero";
 import SearchInput from "@/components/SearchInput";
+import Features from "@/components/Features";
+import Testimonials from "@/components/Testimonials";
+import NewsLetter from "@/components/NewsLetter";
 
 const HomePage = () => {
   return (
@@ -32,6 +35,9 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      <Features />
+      <Testimonials />
+      <NewsLetter />
     </Layout>
   );
 };
