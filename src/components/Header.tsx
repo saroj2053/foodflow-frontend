@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MobileNav from "./MobileNav";
 import MainNav from "./MainNav";
 import { Utensils } from "lucide-react";
