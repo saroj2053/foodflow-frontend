@@ -5,11 +5,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { LogOut, Menu } from "lucide-react";
+import { Container, House, LogOut, Menu, Store, User } from "lucide-react";
 import { Button } from "./ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import { Separator } from "./ui/separator";
 import { useAuthStore } from "@/store/useAuthStore";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const MobileNav = () => {
   const navigate = useNavigate();
@@ -28,38 +37,64 @@ const MobileNav = () => {
         <SheetDescription className="flex flex-col gap-3">
           <Link
             to="/"
-            className="text-center font-semibold hover:text-orange-500 my-3"
+            className="flex flex-col items-center justify-center gap-1 font-semibold hover:text-orange-500 my-3"
           >
+            <House />
             Home
           </Link>
           <Link
             to="/allRestaurants"
-            className="text-center font-semibold hover:text-orange-500 my-3"
+            className="flex flex-col items-center justify-center gap-1 font-semibold hover:text-orange-500 my-3"
           >
+            <Store />
             Browse Restaurants
           </Link>
           {user ? (
             <>
               <Link
                 to="/order"
-                className="text-center font-semibold hover:text-orange-500 my-3"
+                className="flex flex-col items-center justify-center gap-1 font-semibold hover:text-orange-500 my-3"
               >
+                <Container />
                 Order Status
               </Link>
-              <div className="flex gap-2 justify-center items-center cursor-pointer my-3">
-                <img
-                  className="w12 h-12 rounded-full"
-                  src={user?.avatar}
-                  alt="avatar"
-                />
-                <p className="hover:text-orange-600">{user?.email}</p>
-              </div>
-              <Button variant="destructive" onClick={() => clearUserAndToken()}>
-                Log Out{" "}
-                <span className="pl-1.5">
-                  <LogOut />
-                </span>
-              </Button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <div className="flex  justify-center items-center cursor-pointer my-3">
+                    <img
+                      className="w12 h-12 rounded-full"
+                      src={user?.avatar}
+                      alt="avatar"
+                    />
+                  </div>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-56">
+                  <DropdownMenuLabel>{user?.email}</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuGroup>
+                    <DropdownMenuItem onClick={() => navigate("/user-profile")}>
+                      <User className="mr-2 h-4 w-4" />
+                      <span>My Profile</span>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem
+                      onClick={() => navigate("/manage-restaurant")}
+                    >
+                      <Store className="mr-2 h-4 w-4" />
+                      <span>My Restaurant</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuGroup>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    onClick={() => clearUserAndToken()}
+                    className="bg-red-500 text-white"
+                  >
+                    <Link to="/" className="flex items-center w-full">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      Log out
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </>
           ) : (
             <>
