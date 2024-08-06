@@ -69,3 +69,40 @@ export const useCreateRestaurant = () => {
 
   return { addRestaurant, isLoading };
 };
+
+export const useUpdateRestaurant = () => {
+  const { token } = useAuthStore();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const updateRestauranRequest = async (
+    restaurantFormData: FormData
+  ): Promise<Restaurant> => {
+    const response = await fetch(`${API_BASE_URL}/api/restaurant`, {
+      method: "PUT",
+      headers: { Authorization: `Bearer ${token}` },
+      body: restaurantFormData,
+    });
+    if (!response.ok) {
+      enqueueSnackbar("Failed to update restaurant", { variant: "error" });
+      throw new Error("Failed to update restaurant");
+    }
+    return response.json();
+  };
+
+  const {
+    mutate: updateRestaurant,
+    isLoading,
+    error,
+    isSuccess,
+  } = useMutation(updateRestauranRequest);
+
+  if (isSuccess) {
+    enqueueSnackbar("restaurant updated successfully", { variant: "success" });
+  }
+
+  if (error) {
+    enqueueSnackbar("failed to update restaurant", { variant: "error" });
+  }
+
+  return { updateRestaurant, isLoading };
+};
