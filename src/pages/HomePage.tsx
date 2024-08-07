@@ -2,24 +2,34 @@ import landingImg from "../assets/landing.png";
 import appDownloadImage from "../assets/appDownload.png";
 import Layout from "@/layouts/Layout";
 import Hero from "@/components/Hero";
-import SearchInput from "@/components/SearchInput";
+import SearchInput, { SearchForm } from "@/components/SearchInput";
 import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
 import NewsLetter from "@/components/NewsLetter";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+  const navigate = useNavigate();
+  const handleSearchSubmit = (searchFormValues: SearchForm) => {
+    navigate({
+      pathname: `/search/${searchFormValues.searchQuery}`,
+    });
+  };
   return (
     <Layout>
       <Hero />
       <div className="container mx-auto flex flex-col gap-12 z-20">
-        <div className="bg-slate-50  rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-16 z-10">
-          <h1 className="text-4xl tracking-tight font-bold text-orange-600">
+        <div className="md:px-32 bg-slate-50  rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-16 z-10">
+          <h1 className=" text-2xl md:text-3xl lg:text-4xl xl:text-5xl tracking-tight font-bold text-orange-600">
             Indulge into a takeout today
           </h1>
-          <span className="text-xl">Food is just a click away!</span>
-          <div className="w-[80%] mx-auto">
-            <SearchInput />
-          </div>
+          <span className="text-xl text-slate-800">
+            Food is just a click away!
+          </span>
+          <SearchInput
+            placeHolder="Search by City or Town"
+            onSubmit={handleSearchSubmit}
+          />
         </div>
         <div className="grid md:grid-cols-2 gap-5">
           <img src={landingImg} alt="" />
