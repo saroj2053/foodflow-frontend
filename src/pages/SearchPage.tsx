@@ -6,7 +6,6 @@ import SearchResultCard from "@/components/SearchResultCard";
 import SearchResultInfo from "@/components/SearchResultInfo";
 import SortOptionDropdown from "@/components/SortOptionDropdown";
 import Layout from "@/layouts/Layout";
-import { CircleSlash2 } from "lucide-react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 
