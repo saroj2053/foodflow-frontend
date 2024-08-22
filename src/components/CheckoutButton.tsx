@@ -11,9 +11,10 @@ import LoadingButton from "./LoadingButton";
 type Props = {
   onCheckout: (userFormData: UserFormData) => void;
   disabled: boolean;
+  isLoading: boolean;
 };
 
-const CheckoutButton = ({ onCheckout, disabled }: Props) => {
+const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
   const { user, token } = useAuthStore();
   const navigate = useNavigate();
 
@@ -33,7 +34,7 @@ const CheckoutButton = ({ onCheckout, disabled }: Props) => {
     );
   }
 
-  if (!currentUser) {
+  if (!currentUser || isLoading) {
     return <LoadingButton />;
   }
 
