@@ -7,6 +7,7 @@ import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
 import NewsLetter from "@/components/NewsLetter";
 import { useNavigate } from "react-router-dom";
+import DeliveryLottie from "@/components/DeliveryLottie";
 
 const HomePage = () => {
   const navigate = useNavigate();
@@ -31,6 +32,16 @@ const HomePage = () => {
             onSubmit={handleSearchSubmit}
           />
         </div>
+      </div>
+      <div className="bg-slate-50">
+        <div className="container mx-auto my-12 py-12 flex flex-col lg:flex-row justify-between items-center ">
+          <Features />
+          <DeliveryLottie />
+        </div>
+      </div>
+      <Testimonials />
+
+      <div className="container mx-auto py-12">
         <div className="grid md:grid-cols-2 gap-5">
           <img src={landingImg} alt="" />
           <div className="flex flex-col items-center justify-center gap-4 text-center">
@@ -45,8 +56,6 @@ const HomePage = () => {
           </div>
         </div>
       </div>
-      <Features />
-      <Testimonials />
       <NewsLetter />
     </Layout>
   );

@@ -2,13 +2,13 @@ import { Facebook, Twitter, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
-    <div className="bg-stone-100 py-4 ">
+    <div className="bg-stone-100 py-6">
       <div className="container mx-auto flex flex-col gap-6 md:flex-row justify-between items-center">
         <span className="text-4xl  font-bold tracking-normal">
           Ezy Eats
           <span className="text-4xl font-bold text-orange-600">.</span>
         </span>
-        <span className="font-semibold text-md text-center">
+        <span className="font-semibold text-base text-center text-slate-800">
           &copy; 2024 <span className="text-orange-600">Saroj Sah</span> | All
           rights reserved
         </span>

@@ -7,7 +7,7 @@ import "swiper/css/pagination";
 const Testimonials = () => {
   return (
     <>
-      <h2 className="text-center text-6xl font-bold mb-12 text-slate-800 ">
+      <h2 className="text-center text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold mb-12 text-slate-800 ">
         Customer Testimonials
       </h2>
       <div className="container mx-auto py-10 rounded-md">

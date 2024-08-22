@@ -126,7 +126,17 @@ const Signup = () => {
                     className="absolute right-4 top-5"
                     onClick={() => setShowPassword((prevState) => !prevState)}
                   >
-                    {showPassword ? <Eye /> : <EyeOff />}
+                    {showPassword ? (
+                      <Eye
+                        color=" rgb(148 163 184)"
+                        className="cursor-pointer"
+                      />
+                    ) : (
+                      <EyeOff
+                        color=" rgb(148 163 184)"
+                        className="cursor-pointer"
+                      />
+                    )}
                   </span>
                   {errors.password && (
                     <div className="text-red-500 text-sm">
@@ -164,7 +174,17 @@ const Signup = () => {
                       setShowConfirmPassword((prevState) => !prevState)
                     }
                   >
-                    {showConfirmPassword ? <Eye /> : <EyeOff />}
+                    {showConfirmPassword ? (
+                      <Eye
+                        color=" rgb(148 163 184)"
+                        className="cursor-pointer"
+                      />
+                    ) : (
+                      <EyeOff
+                        color=" rgb(148 163 184)"
+                        className="cursor-pointer"
+                      />
+                    )}
                   </span>
                   {errors.confirmPassword && (
                     <div className="text-red-500 text-sm">
@@ -185,12 +205,11 @@ const Signup = () => {
               {isSubmitting ? "Signing you..." : "Sign Up"}
             </Button>
             <span>
-              Already have an account?{" "}
               <Link
-                className="underline hover:no-underline hover:text-orange-500"
+                className="text-slate-700 hover:border-b-2 hover:border-slate-400 font-semibold "
                 to="/login"
               >
-                Log In
+                Already have an account? Log In
               </Link>
             </span>
           </CardFooter>

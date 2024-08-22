@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import { Eye, EyeOff, LogInIcon } from "lucide-react";
 import { useLogin } from "@/api/authAPI";
@@ -24,6 +24,10 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const { loginUser, isLoading } = useLogin();
   const navigate = useNavigate();
+
+  const location = useLocation();
+
+  const redirectPath = location.state?.from || "/";
 
   const handleSubmit = async (evt: React.FormEvent) => {
     evt.preventDefault();
@@ -54,7 +58,7 @@ const Login = () => {
     //form submission
     const loginCredentials = { email, password };
     await loginUser(loginCredentials);
-    navigate("/");
+    navigate(`${redirectPath}`);
   };
 
   const togglePasswordVisibility = () => {
@@ -110,7 +114,17 @@ const Login = () => {
                     className="absolute right-4 top-5"
                     onClick={togglePasswordVisibility}
                   >
-                    {showPassword ? <Eye /> : <EyeOff />}
+                    {showPassword ? (
+                      <Eye
+                        color=" rgb(148 163 184)"
+                        className="cursor-pointer"
+                      />
+                    ) : (
+                      <EyeOff
+                        color=" rgb(148 163 184)"
+                        className="cursor-pointer"
+                      />
+                    )}
                   </span>
                   {errors.password && (
                     <div className="text-red-500 text-sm">
@@ -131,12 +145,11 @@ const Login = () => {
               {isLoading ? "Logging in.." : "Login"}
             </Button>
             <span>
-              Don't have an account?{" "}
               <Link
-                className="underline hover:no-underline hover:text-orange-500"
+                className="text-slate-700 hover:border-b-2 hover:border-slate-400 font-semibold "
                 to="/signup"
               >
-                Sign Up
+                Don't have an account? Sign Up
               </Link>
             </span>
           </CardFooter>

@@ -13,29 +13,45 @@ import {
 import { Input } from "@/components/ui/input";
 import LoadingButton from "@/components/LoadingButton";
 import { Button } from "@/components/ui/button";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useEffect } from "react";
+import { User } from "@/store/useAuthStore";
 
 const formSchema = z.object({
   email: z.string().optional(),
   name: z.string().min(1, { message: "name is required" }),
-  addressLine1: z.string().min(1, { message: "Address Line 1 is required" }),
-  city: z.string().min(1, { message: "City is required" }),
-  country: z.string().min(1, { message: "Country is required" }),
+  address: z.object({
+    addressLine1: z.string().min(1, { message: "Address Line 1 is required" }),
+    city: z.string().min(1, { message: "City is required" }),
+    country: z.string().min(1, { message: "Country is required" }),
+  }),
 });
 
-type UserFormData = z.infer<typeof formSchema>;
+export type UserFormData = z.infer<typeof formSchema>;
 
 type Props = {
   onSave: (userProfileData: UserFormData) => void;
   isLoading: boolean;
+  currentUser: User;
+  title?: string;
+  buttonText?: string;
 };
 
-const UserProfileForm = ({ isLoading, onSave }: Props) => {
+const UserProfileForm = ({
+  isLoading,
+  onSave,
+  currentUser,
+  title,
+  buttonText,
+}: Props) => {
   const form = useForm<UserFormData>({
     resolver: zodResolver(formSchema),
+    defaultValues: currentUser,
   });
 
-  const { user } = useAuthStore();
+  useEffect(() => {
+    form.reset(currentUser);
+  }, [currentUser, form]);
+
   return (
     <Form {...form}>
       <form
@@ -43,7 +59,7 @@ const UserProfileForm = ({ isLoading, onSave }: Props) => {
         className="space-y-6 bg-gray-50 py-8 rounded-lg md:p-10"
       >
         <div className="container mx-auto">
-          <h2 className="text-2xl font-bold">User Profile Form</h2>
+          <h2 className="text-2xl font-bold">{title}</h2>
           <FormDescription>
             View and change your profile information here
           </FormDescription>
@@ -56,12 +72,7 @@ const UserProfileForm = ({ isLoading, onSave }: Props) => {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      value={user?.email}
-                      disabled
-                      className="bg-white"
-                    />
+                    <Input {...field} disabled className="bg-white" />
                   </FormControl>
                 </FormItem>
               )}
@@ -73,30 +84,21 @@ const UserProfileForm = ({ isLoading, onSave }: Props) => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder={user?.name}
-                      className="bg-white"
-                    />
+                    <Input {...field} className="bg-white" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
             <div className="flex flex-col md:flex-row gap-4">
               <FormField
                 control={form.control}
-                name="addressLine1"
+                name="address.addressLine1"
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel>AddressLine1</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={user?.address?.addressLine1}
-                        className="bg-white"
-                      />
+                      <Input {...field} className="bg-white" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -104,16 +106,12 @@ const UserProfileForm = ({ isLoading, onSave }: Props) => {
               />
               <FormField
                 control={form.control}
-                name="city"
+                name="address.city"
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel>City</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={user?.address?.city}
-                        className="bg-white"
-                      />
+                      <Input {...field} className="bg-white" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -121,16 +119,12 @@ const UserProfileForm = ({ isLoading, onSave }: Props) => {
               />
               <FormField
                 control={form.control}
-                name="country"
+                name="address.country"
                 render={({ field }) => (
                   <FormItem className="flex-1">
                     <FormLabel>Country</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
-                        placeholder={user?.address?.country}
-                        className="bg-white"
-                      />
+                      <Input {...field} className="bg-white" />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -142,7 +136,7 @@ const UserProfileForm = ({ isLoading, onSave }: Props) => {
               <LoadingButton />
             ) : (
               <Button type="submit" className="bg-orange-500">
-                Submit
+                {buttonText}
               </Button>
             )}
           </div>

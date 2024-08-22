@@ -1,12 +1,18 @@
-import { useUpdateUser } from "@/api/userAPI";
+import { useGetUserDetails, useUpdateUser } from "@/api/userAPI";
+import LoadingButton from "@/components/LoadingButton";
 import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
 import Layout from "@/layouts/Layout";
 import { useAuthStore } from "@/store/useAuthStore";
 import { House, Mail, Map, MapPin, User } from "lucide-react";
 
 const UserProfilePage = () => {
-  const { updateUser, isLoading } = useUpdateUser();
+  const { updateUser, isLoading: isUpdateLoading } = useUpdateUser();
   const { user } = useAuthStore();
+  const { currentUser } = useGetUserDetails();
+  if (!currentUser) {
+    return <LoadingButton />;
+  }
+
   return (
     <Layout>
       <div className="container mx-auto flex flex-wrap items-center justify-between py-20 gap-12">
@@ -52,7 +58,13 @@ const UserProfilePage = () => {
           </h2>
         </div>
       </div>
-      <UserProfileForm onSave={updateUser} isLoading={isLoading} />
+      <UserProfileForm
+        onSave={updateUser}
+        isLoading={isUpdateLoading}
+        currentUser={currentUser}
+        title="User Profile"
+        buttonText="Submit"
+      />
     </Layout>
   );
 };

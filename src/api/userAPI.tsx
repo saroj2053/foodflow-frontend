@@ -1,14 +1,53 @@
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore, User } from "@/store/useAuthStore";
 import { useSnackbar } from "notistack";
-import { useMutation } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 type UpdateUserRequest = {
   name: string;
-  addressLine1: string;
-  city: string;
-  country: string;
+  address: {
+    addressLine1: string;
+    city: string;
+    country: string;
+  };
+};
+
+export const useGetUserDetails = () => {
+  const { token } = useAuthStore();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const getUserRequest = async (): Promise<User> => {
+    if (!token) {
+      throw new Error("No token available");
+    }
+    const response = await fetch(`${API_BASE_URL}/api/user/profile`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to get user");
+    }
+
+    console.log(response);
+
+    return response.json();
+  };
+
+  const {
+    data: currentUser,
+    isLoading,
+    error,
+  } = useQuery("fetchCurrentUser", getUserRequest);
+
+  if (error) {
+    enqueueSnackbar(error.toString(), { variant: "error" });
+  }
+  return { currentUser, isLoading };
 };
 
 export const useUpdateUser = () => {
@@ -18,6 +57,7 @@ export const useUpdateUser = () => {
     if (!token) {
       throw new Error("No accessToken detected");
     }
+
     const response = await fetch(`${API_BASE_URL}/api/user/profile/update`, {
       method: "PUT",
       headers: {
