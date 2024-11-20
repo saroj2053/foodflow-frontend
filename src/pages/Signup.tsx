@@ -12,7 +12,7 @@ import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSignup } from "@/api/authAPI";
-import { Eye, EyeOff, UserPlus } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 
 type Inputs = {
@@ -43,14 +43,9 @@ const Signup = () => {
   return (
     <Layout>
       <div className="container mx-auto flex justify-center items-center min-h-[80vh] py-12">
-        <Card className="w-[500px]">
+        <Card className="w-[500px] my-8">
           <CardHeader>
-            <CardTitle className="text-6xl font-bold text-slate-800 text-center pb-6">
-              <div className="w-20 h-20 -mt-16 bg-orange-200 rounded-full mx-auto flex items-center justify-center">
-                <span className="text-xl text-slate-800">
-                  <UserPlus size={45} />
-                </span>
-              </div>
+            <CardTitle className="text-5xl font-bold text-slate-800 text-center pb-6">
               Sign Up
             </CardTitle>
           </CardHeader>

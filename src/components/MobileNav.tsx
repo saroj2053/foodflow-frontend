@@ -31,7 +31,7 @@ const MobileNav = () => {
       </SheetTrigger>
       <SheetContent className="space-y-3">
         <SheetTitle>
-          <span>Welcome {user ? user.name : "to EzyEats."}.</span>
+          <span>Welcome {user ? user.name : "to Food Flow"}.</span>
         </SheetTitle>
         <Separator />
         <SheetDescription className="flex flex-col gap-3">
@@ -99,17 +99,10 @@ const MobileNav = () => {
           ) : (
             <>
               <Button
-                variant="ghost"
-                className="flex-1 font-semibold"
+                className="flex-1 font-semibold bg-orange-500 text-slate-100"
                 onClick={() => navigate("/login")}
               >
-                Log In
-              </Button>
-              <Button
-                className="flex-1 font-semibold bg-orange-500 text-slate-100"
-                onClick={() => navigate("/signup")}
-              >
-                Sign Up
+                Login/Signup
               </Button>
             </>
           )}

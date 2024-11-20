@@ -6,8 +6,7 @@ import {
   LogIn,
   LogOut,
   Store,
-  User,
-  UserPlus,
+  User
 } from "lucide-react";
 import { useLogout } from "@/api/authAPI";
 import {
@@ -30,7 +29,7 @@ const MainNav = () => {
     logoutUser();
   };
   return (
-    <div className="flex gap-8 items-center font-semibold text-slate-700 text-sm">
+    <div className="flex gap-8 items-center font-semibold dark:text-white text-sm">
       <Link
         to="/"
         className="flex flex-col items-center justify-center gap-1 font-semibold hover:text-orange-500 my-3"
@@ -101,17 +100,9 @@ const MainNav = () => {
             <span>
               <LogIn size={20} />
             </span>
-            Log In
+            Login/Signup
           </Link>
-          <Link
-            to="/signup"
-            className="flex flex-col items-center justify-center font-semibold text-md hover:text-orange-500 "
-          >
-            <span>
-              <UserPlus />
-            </span>
-            Sign Up
-          </Link>
+          
         </>
       )}
     </div>

@@ -11,7 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { Eye, EyeOff, LogInIcon } from "lucide-react";
+import { Eye, EyeOff } from "lucide-react";
 import { useLogin } from "@/api/authAPI";
 
 const Login = () => {
@@ -66,15 +66,10 @@ const Login = () => {
   };
   return (
     <Layout>
-      <div className="container mx-auto flex justify-center items-center min-h-[75vh]">
-        <Card className="w-[500px]">
+      <div className="container mx-auto flex justify-center items-center min-h-[75vh] ">
+        <Card className="w-[500px] my-4">
           <CardHeader>
-            <CardTitle className="text-6xl font-bold text-slate-800 text-center pb-6">
-              <div className="w-20 h-20 -mt-16 bg-orange-200 rounded-full mx-auto flex items-center justify-center">
-                <span className="text-xl  text-slate-800">
-                  <LogInIcon size={45} />
-                </span>
-              </div>
+            <CardTitle className="text-5xl font-bold text-slate-800 text-center pb-6">
               Login
             </CardTitle>
           </CardHeader>
